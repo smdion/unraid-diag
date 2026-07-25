@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Unraid Diagnostics Analyzer
 
-## Getting Started
+A local web app that takes an Unraid diagnostics zip (`Tools > Diagnostics`
+in the Unraid webGUI) and gives back a plain-English list of known issues
+found in the logs and SMART reports — each with a severity, the matched
+evidence line, an explanation, and a link to the relevant docs.unraid.net
+page.
 
-First, run the development server:
+## How it works
+
+1. Drag and drop (or click to browse) a diagnostics `.zip` in the browser.
+2. The server unzips it in memory (nothing is written to disk) and runs
+   every file through a set of known-issue signatures.
+3. Matches are returned as a severity-coded list: critical / warning / info.
+
+Detection is **fully deterministic** — plain regex/string matching against
+a signature file, no LLM involved in deciding whether something is a match.
+This is intentional: the same zip always produces the same result, with no
+hallucination risk. The signatures live in
+[`src/detection/signatures.json`](src/detection/signatures.json), so adding
+a new check is just adding a JSON entry, not touching code.
+
+The detection engine ([`src/detection/`](src/detection)) and the (not yet
+wired up) AI explanation layer ([`src/ai/`](src/ai)) are kept in separate
+modules on purpose, so any future natural-language layer can only add
+narrative text on top of findings the deterministic engine already
+produced — never decide what counts as a match.
+
+## Running locally
+
+Requires Node.js. Install dependencies, then start the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) and upload a
+diagnostics zip.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run a production build instead:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm start
+```
