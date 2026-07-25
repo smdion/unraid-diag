@@ -1,0 +1,172 @@
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: color-mix(in srgb, var(--foreground) 70%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.dropzone {
+  border: 2px dashed color-mix(in srgb, var(--foreground) 25%, transparent);
+  border-radius: 12px;
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.dropzone:hover {
+  border-color: color-mix(in srgb, var(--foreground) 45%, transparent);
+}
+
+.dropzoneActive {
+  border-color: #3b82f6;
+  background-color: color-mix(in srgb, #3b82f6 8%, transparent);
+}
+
+.dropzoneTitle {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dropzoneHint {
+  color: color-mix(in srgb, var(--foreground) 60%, transparent);
+  font-size: 0.875rem;
+}
+
+.errorBox {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background-color: color-mix(in srgb, #ef4444 12%, transparent);
+  border: 1px solid color-mix(in srgb, #ef4444 40%, transparent);
+  color: #ef4444;
+  font-size: 0.9rem;
+}
+
+.results {
+  margin-top: 32px;
+}
+
+.resultsSummary {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--foreground) 70%, transparent);
+  margin-bottom: 16px;
+}
+
+.noIssues {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: color-mix(in srgb, #22c55e 10%, transparent);
+  border: 1px solid color-mix(in srgb, #22c55e 35%, transparent);
+}
+
+.findingList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.finding {
+  border-radius: 10px;
+  padding: 16px 18px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-left-width: 4px;
+}
+
+.finding.critical {
+  border-left-color: #ef4444;
+}
+
+.finding.warning {
+  border-left-color: #f59e0b;
+}
+
+.finding.info {
+  border-left-color: #3b82f6;
+}
+
+.findingHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #fff;
+}
+
+.critical .badge {
+  background-color: #ef4444;
+}
+
+.warning .badge {
+  background-color: #f59e0b;
+}
+
+.info .badge {
+  background-color: #3b82f6;
+}
+
+.findingTitle {
+  font-weight: 600;
+}
+
+.explanation {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: color-mix(in srgb, var(--foreground) 85%, transparent);
+}
+
+.evidenceBlock {
+  background-color: color-mix(in srgb, var(--foreground) 6%, transparent);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  overflow-x: auto;
+}
+
+.evidenceMeta {
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--foreground) 55%, transparent);
+  margin-bottom: 4px;
+}
+
+.evidenceLine {
+  font-size: 0.8rem;
+  white-space: pre;
+}
+
+.docLink {
+  font-size: 0.85rem;
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.docLink:hover {
+  text-decoration: underline;
+}

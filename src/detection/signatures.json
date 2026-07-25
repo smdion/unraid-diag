@@ -1,0 +1,65 @@
+[
+  {
+    "id": "docker-oom-killed",
+    "title": "Docker container OOM-killed",
+    "severity": "critical",
+    "targetFile": "syslog",
+    "pattern": "Out of memory: Killed process \\d+ \\(([^)]+)\\)",
+    "explanation": "A Docker container was killed by the Linux OOM killer due to memory exhaustion. The container named in the match ran out of available RAM (or hit a memory limit) and the kernel force-killed it to protect system stability.",
+    "docLink": "https://docs.unraid.net/unraid-os/manual/docker-management/"
+  },
+  {
+    "id": "xfs-corruption",
+    "title": "XFS corruption warning",
+    "severity": "critical",
+    "targetFile": "syslog",
+    "pattern": "XFS \\(([^)]+)\\): (Metadata )?[Cc]orruption",
+    "explanation": "Filesystem corruption was detected on an array disk or cache device. This is a high-severity finding — run a filesystem check on the affected device and consider replacing the disk if corruption recurs.",
+    "docLink": "https://docs.unraid.net/unraid-os/manual/storage-management/#xfs"
+  },
+  {
+    "id": "btrfs-error",
+    "title": "BTRFS error/checksum failure",
+    "severity": "warning",
+    "targetFile": "syslog",
+    "pattern": "BTRFS (error|warning).*|csum failed",
+    "explanation": "BTRFS reported an error or checksum mismatch, often seen on cache pool drives. This can indicate a failing disk, a bad cable, or memory issues corrupting data before it's written.",
+    "docLink": "https://docs.unraid.net/unraid-os/manual/storage-management/#btrfs"
+  },
+  {
+    "id": "cache-pool-full",
+    "title": "Cache pool full",
+    "severity": "warning",
+    "targetFile": "syslog",
+    "pattern": "No space left on device",
+    "explanation": "A mount point (often /mnt/cache) is out of space. Check cache drive usage and mover settings — if the mover isn't running or shares aren't configured to move data off cache, it will fill up.",
+    "docLink": "https://docs.unraid.net/unraid-os/manual/shares/#cache"
+  },
+  {
+    "id": "unclean-shutdown",
+    "title": "Unclean shutdown detected",
+    "severity": "warning",
+    "targetFile": "syslog",
+    "pattern": "[Uu]nclean shutdown",
+    "explanation": "The system didn't shut down gracefully last time (power loss, crash, or hard reset). This forces a parity check on the next array start, which can take many hours on large arrays.",
+    "docLink": "https://docs.unraid.net/unraid-os/manual/storage-management/#parity-check"
+  },
+  {
+    "id": "bond-link-down",
+    "title": "Network bonding link down",
+    "severity": "warning",
+    "targetFile": "syslog",
+    "pattern": "bond\\d+: link status definitely down",
+    "explanation": "A bonded network interface lost link to its switch or peer. Check physical cabling, the switch port, and bonding/LACP configuration on both ends.",
+    "docLink": "https://docs.unraid.net/unraid-os/manual/network-management/#bonding"
+  },
+  {
+    "id": "smart-sectors-rising",
+    "title": "SMART reallocated/pending sectors rising",
+    "severity": "critical",
+    "targetFile": "*smart*",
+    "pattern": "(Reallocated_Sector_Ct|Current_Pending_Sector)\\s+\\S+\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\S+\\s+([1-9]\\d*)",
+    "explanation": "A non-zero reallocated or pending sector count was found in SMART data — an early warning sign of drive failure. Back up data on this disk and monitor it closely, or plan a replacement.",
+    "docLink": "https://docs.unraid.net/unraid-os/manual/storage-management/#smart"
+  }
+]
